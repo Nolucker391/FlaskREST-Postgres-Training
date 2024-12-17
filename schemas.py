@@ -1,0 +1,16 @@
+from flask_restx import Namespace, fields
+
+
+api = Namespace("tweets", description="Tweet related operations")
+
+# определение моделей данных для входящих данных твитов, которую ожидает API
+tweet_data_model = api.model("TweetData", {
+    "tweet_data": fields.String(description="Content of the tweet", required=True),
+    "tweet_media_ids": fields.List(fields.Integer, description="Optional list of media IDs attached to the tweet")
+})
+
+# что будет возвращать
+tweet_response_model = api.model("TweetResponse", {
+    "result": fields.Boolean(description="Status of the operation"),
+    "tweet_id": fields.Integer(description="ID of the created tweet")
+})
