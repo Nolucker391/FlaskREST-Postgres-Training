@@ -1,0 +1,26 @@
+#version: '3'
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/project
+    environment:
+      FLASK_APP: main.py
+      FLASK_ENV: production
+
+  postgres:
+    image: postgres:latest
+    environment:
+      - POSTGRES_USER=almir
+      - POSTGRES_PASSWORD=almir
+      - log_destination=stderr #(направление логов в поток вывода ошибок);
+      - logging_collector=on #(включение сборщика логов из stderr в log-файлы); log_directory (путь к директории, в которой будут лежать логи).
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./database/:/var/lib/postgresql/data
