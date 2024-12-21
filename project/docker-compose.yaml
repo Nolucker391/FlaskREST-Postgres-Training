@@ -12,15 +12,23 @@ services:
     environment:
       FLASK_APP: main.py
       FLASK_ENV: production
+    networks:
+      - my_network
 
   postgres:
     image: postgres:latest
     environment:
-      - POSTGRES_USER=almir
-      - POSTGRES_PASSWORD=almir
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=admin
       - log_destination=stderr #(направление логов в поток вывода ошибок);
       - logging_collector=on #(включение сборщика логов из stderr в log-файлы); log_directory (путь к директории, в которой будут лежать логи).
     ports:
       - "5432:5432"
+    networks:
+      - my_network
     volumes:
       - ./database/:/var/lib/postgresql/data
+
+networks:
+  my_network:
+    driver: bridge

@@ -6,9 +6,10 @@ from sqlalchemy.orm import sessionmaker, declarative_base
 
 from config import DB_USER, DB_PASSWORD, DB_HOST, DB_PORT, DB_NAME
 
-engine = create_engine(
-    f"postgresql+psycopg2://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
-)  # создаем движок для SQLAlchemyORM, для подключение к БД POSTGRES
+# engine = create_engine(
+#     f"postgresql+psycopg2://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
+# )  # создаем движок для SQLAlchemyORM, для подключение к БД POSTGRES
+engine = create_engine('postgresql+psycopg2://admin:admin@localhost/skillbox_db')
 metadata = MetaData()  # экземпляр для работы с метаданными БД
 Session = sessionmaker(bind=engine)  # создаем сессию(подключение) к БД
 Base = declarative_base()
